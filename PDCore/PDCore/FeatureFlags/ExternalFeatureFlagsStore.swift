@@ -39,6 +39,7 @@ extension LocalSettings: ExternalFeatureFlagsStore {
         case .driveDDKDisabled: driveDDKDisabled = value
         case .driveMacSyncRecoveryDisabled: driveMacSyncRecoveryDisabled = value
         case .driveMacKeepDownloadedDisabled: driveMacKeepDownloadedDisabled = value
+        case .driveMacPromoBannerDisabled: driveMacPromoBannerDisabled = value
         // Sharing
         case .driveSharingMigration: driveSharingMigration = value
         case .driveSharingInvitations: driveSharingInvitations = value
@@ -103,6 +104,7 @@ extension LocalSettings: ExternalFeatureFlagsStore {
         case .driveDDKDisabled: return driveDDKDisabled
         case .driveMacSyncRecoveryDisabled: return driveMacSyncRecoveryDisabled
         case .driveMacKeepDownloadedDisabled: return driveMacKeepDownloadedDisabled
+        case .driveMacPromoBannerDisabled: return driveMacPromoBannerDisabled
         // Sharing
         case .driveSharingMigration: return driveSharingMigration
         case .driveSharingInvitations: return driveSharingInvitations

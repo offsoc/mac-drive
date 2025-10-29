@@ -30,6 +30,7 @@ public enum ExternalFeatureFlag: String, CaseIterable, Codable {
     case driveDDKDisabled = "DriveDDKDisabled"
     case driveMacSyncRecoveryDisabled = "DriveMacSyncRecoveryDisabled"
     case driveMacKeepDownloadedDisabled = "DriveMacKeepDownloadedDisabled"
+    case driveMacPromoBannerDisabled = "DriveMacPromoBannerDisabled"
 
     // Sharing
     case driveSharingMigration = "DriveSharingMigration"

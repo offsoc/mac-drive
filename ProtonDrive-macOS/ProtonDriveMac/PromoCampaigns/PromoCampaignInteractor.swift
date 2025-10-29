@@ -47,6 +47,7 @@ struct PromoCampaignConfiguration {
 
     fileprivate static let activeCampaigns: [PromoCampaignConfiguration] = [
         PromoCampaignConfiguration(
+            campaignId: "bf-25-stage-1",
             timeRange: .limitedTime(
                 start: Date(timeIntervalSinceReferenceDate: 783860400), // 2025-11-03 12:00 CET
                 end: Date(timeIntervalSinceReferenceDate: 785156400) // 2025-11-18 12:00 CET
@@ -54,9 +55,11 @@ struct PromoCampaignConfiguration {
             backgroundColor: Color(hex: "#D8FF00"),
             tintColor: Color(hex: "#291C5D"),
             icon: .discount,
-            text: "Black Friday: 50% off"
+            text: "Black Friday: 50% off",
+            resetsPreviousDismissal: false
         ),
         PromoCampaignConfiguration(
+            campaignId: "bf-25-stage-2",
             timeRange: .limitedTime(
                 start: Date(timeIntervalSinceReferenceDate: 785156400), // 2025-11-18 12:00 CET
                 end: Date(timeIntervalSinceReferenceDate: 786452400) // 2025-12-03 12:00 CET
@@ -64,24 +67,29 @@ struct PromoCampaignConfiguration {
             backgroundColor: Color(hex: "#D8FF00"),
             tintColor: Color(hex: "#291C5D"),
             icon: .discount,
-            text: "Black Friday: 80% off"
+            text: "Black Friday: 80% off",
+            resetsPreviousDismissal: true
         ),
         PromoCampaignConfiguration(
+            campaignId: "upgrade-drive-plus",
             timeRange: .indefinite(
                 after: Date(timeIntervalSinceReferenceDate: 786452400) // 2025-12-03 12:00 CET
             ),
             backgroundColor: ColorProvider.Primary,
             tintColor: ColorProvider.White,
             icon: .drivePlus,
-            text: "Upgrade to Drive Plus"
+            text: "Upgrade to Drive Plus",
+            resetsPreviousDismissal: false
         )
     ]
 
+    let campaignId: String
     let timeRange: TimeRange
     let backgroundColor: Color
     let tintColor: Color
     let icon: BannerIcon
     let text: String
+    let resetsPreviousDismissal: Bool
 }
 
 protocol PromoCampaignInteractorProtocol {
@@ -96,18 +104,19 @@ final class PromoCampaignInteractor: PromoCampaignInteractorProtocol {
     }
 
     @SettingsStorage(UserDefaults.PromoCampaign.hasDismissedBanner.rawValue) private var hasDismissedBanner: Bool?
+    @SettingsStorage(UserDefaults.PromoCampaign.lastSeenCampaignId.rawValue) private var lastSeenCampaign: String?
+
     private var currentlyActiveCampaign = CurrentValueSubject<PromoCampaignConfiguration?, Never>(nil)
 
     private let dateResource: DateResource
 
     static let shared = PromoCampaignInteractor()
 
-    init(
-        dateResource: DateResource
-    ) {
+    init(dateResource: DateResource) {
         self.dateResource = dateResource
 
         _hasDismissedBanner.configure(with: Constants.appGroup)
+        _lastSeenCampaign.configure(with: Constants.appGroup)
 
         refreshCampaign()
     }
@@ -116,17 +125,18 @@ final class PromoCampaignInteractor: PromoCampaignInteractorProtocol {
         self.init(dateResource: PromoCampaignDateResource())
     }
 
-    func refreshCampaign(resetBannerDismissal: Bool = false) {
-        if resetBannerDismissal {
+    func refreshCampaign(forceResetBannerDismissal: Bool = false) {
+        let activeCampaign = getActiveCampaign()
+
+        if forceResetBannerDismissal || shouldResetBannerDismissal(for: activeCampaign) {
             hasDismissedBanner = false
         }
 
-        guard (hasDismissedBanner ?? false) == false else {
-            currentlyActiveCampaign.send(.none)
-            return
+        if hasDismissedBanner == true {
+            return currentlyActiveCampaign.send(.none)
         }
 
-        let activeCampaign = getActiveCampaign()
+        lastSeenCampaign = activeCampaign?.campaignId
         currentlyActiveCampaign.send(activeCampaign)
     }
 
@@ -148,5 +158,13 @@ final class PromoCampaignInteractor: PromoCampaignInteractorProtocol {
                 return true
             }
         }
+    }
+
+    private func shouldResetBannerDismissal(for activeCampaign: PromoCampaignConfiguration?) -> Bool {
+        guard let activeCampaign, let lastSeenCampaign, hasDismissedBanner == true else {
+            return false
+        }
+
+        return activeCampaign.resetsPreviousDismissal && activeCampaign.campaignId != lastSeenCampaign
     }
 }

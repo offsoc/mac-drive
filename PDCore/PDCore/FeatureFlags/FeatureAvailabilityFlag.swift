@@ -33,6 +33,7 @@ public enum FeatureAvailabilityFlag: CaseIterable {
     case driveDDKDisabled
     case driveMacSyncRecoveryDisabled
     case driveMacKeepDownloadedDisabled
+    case driveMacPromoBannerDisabled
 
     // Sharing
     case driveSharingMigration

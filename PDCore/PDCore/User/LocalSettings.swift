@@ -61,6 +61,7 @@ public class LocalSettings: NSObject {
     @SettingsStorage("DriveDDKDisabled") public var driveDDKDisabledValue: Bool?
     @SettingsStorage("DriveMacSyncRecoveryDisabled") public var driveMacSyncRecoveryDisabledValue: Bool?
     @SettingsStorage("DriveMacKeepDownloadedDisabled") public var driveMacKeepDownloadedDisabledValue: Bool?
+    @SettingsStorage("DriveMacPromoBannerDisabled") public var driveMacPromoBannerDisabledValue: Bool?
     @SettingsStorage("DriveAlbumsDisabled") public var driveAlbumsDisabledValue: Bool?
     @SettingsStorage("DriveCopyDisabled") public var driveCopyDisabledValue: Bool?
     @SettingsStorage("photoVolumeMigrationLastShownDate") public var photoVolumeMigrationLastShownDate: Date?
@@ -184,6 +185,7 @@ public class LocalSettings: NSObject {
         self._driveDDKDisabledValue.configure(with: suite)
         self._driveMacSyncRecoveryDisabledValue.configure(with: suite)
         self._driveMacKeepDownloadedDisabledValue.configure(with: suite)
+        self._driveMacPromoBannerDisabledValue.configure(with: suite)
         self._didFetchFeatureFlags.configure(with: suite)
         self._promotedNewFeaturesValue.configure(with: suite)
         self._driveAlbumsDisabledValue.configure(with: suite)
@@ -661,6 +663,11 @@ public class LocalSettings: NSObject {
     public var driveMacKeepDownloadedDisabled: Bool {
         get { driveMacKeepDownloadedDisabledValue ?? false }
         set { driveMacKeepDownloadedDisabledValue = newValue }
+    }
+
+    public var driveMacPromoBannerDisabled: Bool {
+        get { driveMacPromoBannerDisabledValue ?? false }
+        set { driveMacPromoBannerDisabledValue = newValue }
     }
 
     public var ratingIOSDrive: Bool {

@@ -34,6 +34,7 @@ struct QASettingsConstants {
     static let driveDDKEnabledInQASettings = "driveDDKEnabledInQASettings"
     static let globalProgressStatusMenuEnabled = "globalProgressStatusMenuEnabled"
     static let overrideDateForPromoCampaign = "overrideDateForPromoCampaign"
+    static let driveMacPromoBannerDisabled = "driveMacPromoBannerDisabled"
 }
 
 protocol EventLoopManager: AnyObject {
@@ -126,10 +127,22 @@ class QASettingsViewModel: ObservableObject {
     var driveDDKDisabledFeatureFlagValue: Bool {
         featureFlags?.isEnabled(flag: .driveDDKDisabled) ?? false
     }
+
     @Published var driveDDKEnabled: String = FeatureFlagOptions.useFF.rawValue {
         didSet { driveDDKEnabledStorage = FeatureFlagOptions(rawValue: driveDDKEnabled)?.toBool }
     }
+
     @SettingsStorage(QASettingsConstants.driveDDKEnabledInQASettings) var driveDDKEnabledStorage: Bool?
+
+    var driveMacPromoBannerDisabledFeatureFlagValue: Bool {
+        featureFlags?.isEnabled(flag: .driveMacPromoBannerDisabled) ?? false
+    }
+
+    @Published var driveMacPromoBannerDisabled: String = FeatureFlagOptions.useFF.rawValue {
+        didSet { driveMacPromoBannerDisabledStorage = FeatureFlagOptions(rawValue: driveMacPromoBannerDisabled)?.toBool }
+    }
+
+    @SettingsStorage(QASettingsConstants.driveMacPromoBannerDisabled) var driveMacPromoBannerDisabledStorage: Bool?
 
     @Published var overrideDateForPromoCampaign: String = "" {
         didSet { overrideDateForPromoCampaignStorage = overrideDateForPromoCampaign }
@@ -175,6 +188,7 @@ class QASettingsViewModel: ObservableObject {
         self._requiresPostMigrationCleanup.configure(with: suite)
         self._disconnectDomainOnSignOutStorage.configure(with: suite)
         self._driveDDKEnabledStorage.configure(with: suite)
+        self._driveMacPromoBannerDisabledStorage.configure(with: suite)
 
         self.dumper = dumperDependencies.map(Dumper.init)
         self.environment = Constants.appGroup.userDefaults.string(forKey: Constants.SettingsBundleKeys.host.rawValue) ?? ""
@@ -203,6 +217,7 @@ class QASettingsViewModel: ObservableObject {
         self.enablePostMigrationCleanup = requiresPostMigrationCleanup ?? false
         self.disconnectDomainOnSignOut = FeatureFlagOptions(bool: disconnectDomainOnSignOutStorage).rawValue
         self.driveDDKEnabled = FeatureFlagOptions(bool: driveDDKEnabledStorage).rawValue
+        self.driveMacPromoBannerDisabled = FeatureFlagOptions(bool: driveMacPromoBannerDisabledStorage).rawValue
 
         self.promoCampaignInteractor.activeCampaign.sink { activeCampaign in
             self.activeCampaign = activeCampaign
@@ -497,7 +512,7 @@ class QASettingsViewModel: ObservableObject {
     }
 
     func refreshPromoCampaign() {
-        self.promoCampaignInteractor.refreshCampaign(resetBannerDismissal: true)
+        self.promoCampaignInteractor.refreshCampaign(forceResetBannerDismissal: true)
     }
 }
 

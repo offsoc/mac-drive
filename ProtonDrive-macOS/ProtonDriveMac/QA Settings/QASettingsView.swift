@@ -198,9 +198,35 @@ struct QASettingsView: View {
                                 exit(0)
                             }
 
-                            Text("Unleash FFs — DriveDDKDisabled: \(vm.driveDDKDisabledFeatureFlagValue ? "true" : "false"), DriveDDKIntelEnabled: \(vm.driveDDKIntelEnabledFeatureFlagValue ? "true" : "false") (used on Intel)")
+                            Text(
+                                [
+                                    "Unleash FFs — DriveDDKDisabled: \(vm.driveDDKDisabledFeatureFlagValue ? "true" : "false"),",
+                                    "DriveDDKIntelEnabled: \(vm.driveDDKIntelEnabledFeatureFlagValue ? "true" : "false") (used on Intel),",
+                                ].joined(separator: "\n")
+                            )
                         }
                         
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("BF'25:")
+                                .fontWeight(.bold)
+                            Picker("", selection: $vm.driveMacPromoBannerDisabled) {
+                                ForEach(QASettingsViewModel.FeatureFlagOptions.allCases.map(\.rawValue), id: \.self) {
+                                    Text($0)
+                                }
+                            }
+                            .pickerStyle(SegmentedPickerStyle())
+                            .onChange(of: vm.driveMacPromoBannerDisabled) { _ in
+                                exit(0)
+                            }
+                            Text("Remember, this is a killswitch: enabled means banner should be disabled.")
+                            Text(
+                                [
+                                    "Unleash FFs — DriveMacPromoBannerDisabled: \(vm.driveDDKDisabledFeatureFlagValue ? "true" : "false"),",
+                                    "QA Setting - DriveMacPromoBannerDisabled: \(vm.driveMacPromoBannerDisabledStorage ?? false)"
+                                ].joined(separator: "\n")
+                            )
+                        }
+
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Disconnect domain:")
                                 .fontWeight(.bold)
@@ -210,7 +236,7 @@ struct QASettingsView: View {
                                 }
                             }
                             .pickerStyle(SegmentedPickerStyle())
-                            
+
                             Text("Backend feature flag value: \(vm.domainReconnectionFeatureFlagValue ? "true" : "false")")
                         }
                     }

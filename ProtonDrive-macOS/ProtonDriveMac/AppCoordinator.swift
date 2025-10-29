@@ -652,15 +652,13 @@ class AppCoordinator: NSObject, ObservableObject {
                 state: appState,
                 domainOperationsService: domainOperationsService
             )
-            
-            await applicationEventObserver?.startSyncMonitoring(
+
+            await applicationEventObserver?.configurePostLoginServices(
                 syncObserver: syncObserver,
                 globalProgressObserver: globalProgressObserver,
-                sessionVault: postLoginServices.tower.sessionVault
-            )
-
-            applicationEventObserver?.startGeneralSettingsMonitoring(
-                settingsService: postLoginServices.tower.generalSettings
+                sessionVault: postLoginServices.tower.sessionVault,
+                settingsService: postLoginServices.tower.generalSettings,
+                featureFlagsRepository: postLoginServices.tower.featureFlags
             )
 
             let hasPlan = initialServices.sessionVault.userInfo?.hasAnySubscription

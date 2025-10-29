@@ -150,6 +150,7 @@ class ExternalFeatureFlagsRepository: FeatureFlagsRepository {
         case .driveDDKDisabled: return .driveDDKDisabled
         case .driveMacSyncRecoveryDisabled: return .driveMacSyncRecoveryDisabled
         case .driveMacKeepDownloadedDisabled: return .driveMacKeepDownloadedDisabled
+        case .driveMacPromoBannerDisabled: return .driveMacPromoBannerDisabled
         // Sharing
         case .driveSharingMigration: return .driveSharingMigration
         case .driveSharingInvitations: return .driveSharingInvitations

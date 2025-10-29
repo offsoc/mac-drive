@@ -40,6 +40,7 @@ class ApplicationEventObserver: ObservableObject {
 #if HAS_QA_FEATURES
     @Published private(set) var state: ApplicationState
     @Published var syncItemHistory = [SyncHistoryItem]()
+    @SettingsStorage(QASettingsConstants.driveMacPromoBannerDisabled) var hasPromoBannerDisabledInQASettings: Bool?
 
     /// Counts how many times the application state is updated, to enable detecting when it happens too much.
     static var updateCounter = 0
@@ -71,6 +72,9 @@ class ApplicationEventObserver: ObservableObject {
     /// Fires every `ElapsedTimeService.timeInterval` seconds, only the dropdown Menu or Status Window are opened.
     private var elapsedTimeService: ElapsedTimeService?
 
+    /// Fires whenever there's a change to feature flags for the user
+    private var featureFlagsRepository: FeatureFlagsRepository?
+
     /// Fires whenever there's a change to active promo campaigns for the user.
     private var promoCampaignInteractor: PromoCampaignInteractorProtocol?
 
@@ -99,6 +103,10 @@ class ApplicationEventObserver: ObservableObject {
 
         self.deleteAlerter = DeleteAlerter()
 
+        #if HAS_QA_FEATURES
+        self._hasPromoBannerDisabledInQASettings.configure(with: Constants.appGroup)
+        #endif
+
         setUpObservers()
     }
 
@@ -109,9 +117,19 @@ class ApplicationEventObserver: ObservableObject {
 
     // MARK: - Public
 
-    public func startSyncMonitoring(syncObserver: SyncDBObserver,
-                                    globalProgressObserver: GlobalProgressObserver?,
-                                    sessionVault: SessionVault?) async {
+    /// Some Drive services are only available after user is logged in,
+    /// such as the session vault, general settings and feature flags.
+    ///
+    /// This function provides a convenient place to configure observation
+    /// of these services. It's expected that any service with long running
+    /// observations are cancelled in `stopMonitoring` as needed.
+    public func configurePostLoginServices(
+        syncObserver: SyncDBObserver,
+        globalProgressObserver: GlobalProgressObserver?,
+        sessionVault: SessionVault?,
+        settingsService: GeneralSettings?,
+        featureFlagsRepository: FeatureFlagsRepository?
+    ) async {
         Log.trace()
 
         self.syncObserver = syncObserver
@@ -126,10 +144,6 @@ class ApplicationEventObserver: ObservableObject {
 
         self.subscribetoLogin()
         self.subscribetoUserInfo()
-    }
-
-    public func startGeneralSettingsMonitoring(settingsService: GeneralSettings) {
-        Log.trace()
 
         generalSettingsService = settingsService
         generalSettingsService?.fetchUserSettings()
@@ -140,6 +154,8 @@ class ApplicationEventObserver: ObservableObject {
                 self?.state.setUserSettings(userSettings)
             }
             .store(in: &userCancellables)
+
+        self.featureFlagsRepository = featureFlagsRepository
     }
 
     /// - Parameters:
@@ -151,8 +167,12 @@ class ApplicationEventObserver: ObservableObject {
         self.globalProgressObserver = nil
         self.elapsedTimeService = nil
         self.sessionVault = nil
+        self.generalSettingsService = nil
+        self.featureFlagsRepository = nil
         self.userCancellables.removeAll()
+
         didReceiveLogoutState(isSignedIn: false)
+
         if !dueToSignOut {
             self.globalCancellables.removeAll()
         }
@@ -344,9 +364,25 @@ class ApplicationEventObserver: ObservableObject {
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] campaign, userInfo, userSettings in
+            guard let self, let featureFlagsRepository else {
+                return
+            }
+
+            guard !featureFlagsRepository.isEnabled(flag: .driveMacPromoBannerDisabled) else {
+                Log.trace("Promo campaign filtered out because killswitch is active")
+                return self.state.setVisibleCampaign(nil)
+            }
+
+            #if HAS_QA_FEATURES
+            if hasPromoBannerDisabledInQASettings == true {
+                Log.trace("Promo campaign filtered out because it's disabled in QA settings")
+                return self.state.setVisibleCampaign(nil)
+            }
+            #endif
+
             guard let userInfo, let userSettings else {
                 Log.trace("Promo campaign filtered out because user info or settings aren't available yet")
-                self?.state.setVisibleCampaign(.none)
+                self.state.setVisibleCampaign(.none)
                 return
             }
 
@@ -359,11 +395,11 @@ class ApplicationEventObserver: ObservableObject {
             // * Users who disabled in-app notifications
             if userInfo.isDelinquent || userInfo.isPaid || !userHasInAppNotificationsEnabled {
                 Log.trace("Promo campaign filtered out because user is not in the target audience")
-                self?.state.setVisibleCampaign(.none)
+                self.state.setVisibleCampaign(.none)
                 return
             }
 
-            self?.state.setVisibleCampaign(campaign)
+            self.state.setVisibleCampaign(campaign)
         }
         .store(in: &userCancellables)
     }

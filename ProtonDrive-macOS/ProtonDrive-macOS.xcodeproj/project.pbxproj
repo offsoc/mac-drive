@@ -1152,14 +1152,14 @@
 			);
 			mainGroup = AB71531724274ED900543720;
 			packageReferences = (
-				D83C419C2C53A233002EF29C /* XCRemoteSwiftPackageReference "Sparkle.git" */,
+				D83C419C2C53A233002EF29C /* XCRemoteSwiftPackageReference "Sparkle" */,
 				D8AB30D62C6217B5006A5F7C /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
-				D8AB30D92C621957006A5F7C /* XCRemoteSwiftPackageReference "TrustKit.git" */,
-				D8AB30E32C621ABF006A5F7C /* XCRemoteSwiftPackageReference "apple-fusion.git" */,
+				D8AB30D92C621957006A5F7C /* XCRemoteSwiftPackageReference "TrustKit" */,
+				D8AB30E32C621ABF006A5F7C /* XCRemoteSwiftPackageReference "apple-fusion" */,
 				3E9137BE2CC77C0400651BC1 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
-				661DC23D2CB94C3C00DECBDE /* XCRemoteSwiftPackageReference "CryptoSwift.git" */,
-				66E09DFC2E7DA3C30082A1B0 /* XCRemoteSwiftPackageReference "Yams.git" */,
-				66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios.git" */,
+				661DC23D2CB94C3C00DECBDE /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+				66E09DFC2E7DA3C30082A1B0 /* XCRemoteSwiftPackageReference "Yams" */,
+				66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios" */,
 			);
 			productRefGroup = AB71532124274ED900543720 /* Products */;
 			projectDirPath = "";
@@ -1825,7 +1825,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.10.0;
+				MARKETING_VERSION = 2.10.1;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.protonmail.drive;
 				PRODUCT_MODULE_NAME = ProtonDriveMac;
@@ -1912,7 +1912,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.10.0;
+				MARKETING_VERSION = 2.10.1;
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.protonmail.drive;
 				PRODUCT_MODULE_NAME = ProtonDriveMac;
@@ -1983,7 +1983,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.10.0;
+				MARKETING_VERSION = 2.10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_CODE_SIGN_FLAGS = "";
@@ -2686,7 +2686,7 @@
 				version = 0.57.0;
 			};
 		};
-		661DC23D2CB94C3C00DECBDE /* XCRemoteSwiftPackageReference "CryptoSwift.git" */ = {
+		661DC23D2CB94C3C00DECBDE /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
 			requirement = {
@@ -2694,7 +2694,7 @@
 				minimumVersion = 1.8.3;
 			};
 		};
-		66E09DFC2E7DA3C30082A1B0 /* XCRemoteSwiftPackageReference "Yams.git" */ = {
+		66E09DFC2E7DA3C30082A1B0 /* XCRemoteSwiftPackageReference "Yams" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jpsim/Yams.git";
 			requirement = {
@@ -2702,7 +2702,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios.git" */ = {
+		66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ProtonMail/protoncore_ios.git";
 			requirement = {
@@ -2710,7 +2710,7 @@
 				version = 33.2.0;
 			};
 		};
-		D83C419C2C53A233002EF29C /* XCRemoteSwiftPackageReference "Sparkle.git" */ = {
+		D83C419C2C53A233002EF29C /* XCRemoteSwiftPackageReference "Sparkle" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sparkle-project/Sparkle.git";
 			requirement = {
@@ -2727,7 +2727,7 @@
 				minimumVersion = 0.0.0;
 			};
 		};
-		D8AB30D92C621957006A5F7C /* XCRemoteSwiftPackageReference "TrustKit.git" */ = {
+		D8AB30D92C621957006A5F7C /* XCRemoteSwiftPackageReference "TrustKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ProtonMail/TrustKit.git";
 			requirement = {
@@ -2736,7 +2736,7 @@
 				minimumVersion = 0.0.0;
 			};
 		};
-		D8AB30E32C621ABF006A5F7C /* XCRemoteSwiftPackageReference "apple-fusion.git" */ = {
+		D8AB30E32C621ABF006A5F7C /* XCRemoteSwiftPackageReference "apple-fusion" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ProtonMail/apple-fusion.git";
 			requirement = {
@@ -2766,7 +2766,7 @@
 		};
 		661DC23E2CB94C3C00DECBDE /* CryptoSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 661DC23D2CB94C3C00DECBDE /* XCRemoteSwiftPackageReference "CryptoSwift.git" */;
+			package = 661DC23D2CB94C3C00DECBDE /* XCRemoteSwiftPackageReference "CryptoSwift" */;
 			productName = CryptoSwift;
 		};
 		667B32052C69F4E500D15C95 /* PDCore */ = {
@@ -2787,47 +2787,47 @@
 		};
 		66E09DFD2E7DA3C30082A1B0 /* Yams */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 66E09DFC2E7DA3C30082A1B0 /* XCRemoteSwiftPackageReference "Yams.git" */;
+			package = 66E09DFC2E7DA3C30082A1B0 /* XCRemoteSwiftPackageReference "Yams" */;
 			productName = Yams;
 		};
 		66E09DFF2E7DA42D0082A1B0 /* Yams */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 66E09DFC2E7DA3C30082A1B0 /* XCRemoteSwiftPackageReference "Yams.git" */;
+			package = 66E09DFC2E7DA3C30082A1B0 /* XCRemoteSwiftPackageReference "Yams" */;
 			productName = Yams;
 		};
 		66E09E012E7DA4490082A1B0 /* Yams */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 66E09DFC2E7DA3C30082A1B0 /* XCRemoteSwiftPackageReference "Yams.git" */;
+			package = 66E09DFC2E7DA3C30082A1B0 /* XCRemoteSwiftPackageReference "Yams" */;
 			productName = Yams;
 		};
 		66E09E282E7DB0A40082A1B0 /* ProtonCoreCryptoMultiversionPatchedGoImplementation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios.git" */;
+			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios" */;
 			productName = ProtonCoreCryptoMultiversionPatchedGoImplementation;
 		};
 		66E09E2A2E7DB0CA0082A1B0 /* ProtonCoreCryptoMultiversionPatchedGoImplementation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios.git" */;
+			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios" */;
 			productName = ProtonCoreCryptoMultiversionPatchedGoImplementation;
 		};
 		66E09E2C2E7DB0D00082A1B0 /* ProtonCoreCryptoMultiversionPatchedGoImplementation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios.git" */;
+			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios" */;
 			productName = ProtonCoreCryptoMultiversionPatchedGoImplementation;
 		};
 		66E09E2E2E7DB2F60082A1B0 /* ProtonCoreQuarkCommands */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios.git" */;
+			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios" */;
 			productName = ProtonCoreQuarkCommands;
 		};
 		66E09E302E7DB2FC0082A1B0 /* ProtonCoreQuarkCommands */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios.git" */;
+			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios" */;
 			productName = ProtonCoreQuarkCommands;
 		};
 		66E09E322E7DB3030082A1B0 /* ProtonCoreQuarkCommands */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios.git" */;
+			package = 66E09E202E7DAD9F0082A1B0 /* XCRemoteSwiftPackageReference "protoncore_ios" */;
 			productName = ProtonCoreQuarkCommands;
 		};
 		726691C02E9FCACD00796513 /* PDCoreTestingToolkit */ = {
@@ -2852,7 +2852,7 @@
 		};
 		D83C419D2C53A233002EF29C /* Sparkle */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D83C419C2C53A233002EF29C /* XCRemoteSwiftPackageReference "Sparkle.git" */;
+			package = D83C419C2C53A233002EF29C /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;
 		};
 		D85AB8362C539D5600FFDC10 /* PDFileProvider */ = {
@@ -2913,17 +2913,17 @@
 		};
 		D8AB30DA2C621957006A5F7C /* TrustKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D8AB30D92C621957006A5F7C /* XCRemoteSwiftPackageReference "TrustKit.git" */;
+			package = D8AB30D92C621957006A5F7C /* XCRemoteSwiftPackageReference "TrustKit" */;
 			productName = TrustKit;
 		};
 		D8AB30E12C621A2F006A5F7C /* TrustKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D8AB30D92C621957006A5F7C /* XCRemoteSwiftPackageReference "TrustKit.git" */;
+			package = D8AB30D92C621957006A5F7C /* XCRemoteSwiftPackageReference "TrustKit" */;
 			productName = TrustKit;
 		};
 		D8AB30E42C621ABF006A5F7C /* fusion */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D8AB30E32C621ABF006A5F7C /* XCRemoteSwiftPackageReference "apple-fusion.git" */;
+			package = D8AB30E32C621ABF006A5F7C /* XCRemoteSwiftPackageReference "apple-fusion" */;
 			productName = fusion;
 		};
 		D8AB30E62C621B7F006A5F7C /* OHHTTPStubs */ = {

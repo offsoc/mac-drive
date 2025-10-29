@@ -20,5 +20,6 @@ import Foundation
 extension UserDefaults {
     enum PromoCampaign: String {
         case hasDismissedBanner
+        case lastSeenCampaignId
     }
 }
